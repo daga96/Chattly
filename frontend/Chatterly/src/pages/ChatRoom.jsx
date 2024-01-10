@@ -40,7 +40,13 @@ const ChatRoom = ({ currentChat, currentUser, socket }) => {
   }, [socket]);
 
   useEffect(() => {
-    incomingMessage && setMessages((prev) => [...prev, incomingMessage]);
+    const receiverId = currentChat.participants.find(
+      (member) => member !== currentUser._id
+    );
+
+    incomingMessage &&
+      incomingMessage.senderId == receiverId &&
+      setMessages((prev) => [...prev, incomingMessage]);
   }, [incomingMessage]);
 
   const handleFormSubmit = async (message) => {
