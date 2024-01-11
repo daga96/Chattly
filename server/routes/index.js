@@ -7,6 +7,7 @@ const router = new Router();
 
 router.post("/createUser", userController.createUser);
 router.post("/login", userController.authUser);
+router.post("/exchangeToken", userController.exchangeAccessToken);
 
 router.post("/getUser", userController.getUser);
 router.post("/getUserId", userController.getUserById);

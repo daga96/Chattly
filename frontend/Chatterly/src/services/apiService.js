@@ -30,3 +30,11 @@ export function getUserById(params) {
     data: params,
   });
 }
+
+export function exchangeToken(params) {
+  return sendRequest({
+    url: `/exchangeToken`,
+    method: "post",
+    data: params,
+  });
+}

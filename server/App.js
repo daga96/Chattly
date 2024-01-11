@@ -20,6 +20,7 @@ app.use(async (ctx, next) => {
   if (
     ctx.path === "/login" ||
     ctx.path === "/createUser" ||
+    ctx.path === "/exchangeToken" ||
     socketIoPathRegex.test(ctx.path)
   ) {
     await next();

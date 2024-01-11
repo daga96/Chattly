@@ -6,7 +6,7 @@ const baseURL = "http://localhost:8080";
 
 export const initiateSocketConnection = async () => {
   try {
-    const token = getLocalStorage("token");
+    const token = getLocalStorage("accessToken");
     const socket = io(baseURL, {
       port: 8080,
       auth: {

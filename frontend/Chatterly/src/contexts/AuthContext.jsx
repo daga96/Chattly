@@ -38,9 +38,12 @@ export function AuthProvider({ children }) {
         username: username,
         password: password,
       });
+
       setCurrentUser(res.data.data.user);
-      setLocalStorage("token", res.data.data.token);
+      setLocalStorage("accessToken", res.data.data.accessToken);
+      setLocalStorage("refreshToken", res.data.data.refreshToken);
       setLocalStorage("user", res.data.data.user);
+
       return res.data;
     } catch (error) {
       console.error(error);
@@ -51,7 +54,8 @@ export function AuthProvider({ children }) {
   }
 
   function logout() {
-    removeLocalStorage("token");
+    removeLocalStorage("accessToken");
+    removeLocalStorage("refreshToken");
     removeLocalStorage("user");
   }
 

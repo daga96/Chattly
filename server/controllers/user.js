@@ -47,15 +47,20 @@ exports.authUser = async (ctx) => {
     return Result.error(ctx, 401, "Incorrect password");
   }
 
-  const token = jwt.sign(
+  const accessToken = jwt.sign(
     { userId: user._id, username: user.username },
-    process.env.TOKEN_KEY,
+    process.env.ACCESS_TOKEN_KEY,
     { expiresIn: "1h" }
   );
 
-  return Result.success(ctx, { user, token });
-};
+  const refreshToken = jwt.sign(
+    { userId: user._id, username: user.username },
+    process.env.REFRESH_TOKEN_KEY,
+    { expiresIn: "7d" }
+  );
 
+  return Result.success(ctx, { user, accessToken, refreshToken });
+};
 exports.getUser = async (ctx) => {
   const { email } = ctx.request.body;
   try {
@@ -83,4 +88,25 @@ exports.getAllUsers = async (ctx) => {
   } catch (error) {
     return Result.error(ctx, error.code, error.message);
   }
+};
+
+exports.exchangeAccessToken = async (ctx) => {
+  const { refreshToken } = ctx.request.body;
+  try {
+    decodedToken = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_KEY);
+  } catch (error) {
+    //throw error
+  }
+
+  const user = await await userModel.findOne(decodedToken._id);
+  if (!user) {
+    //throw error
+  }
+  const accessToken = jwt.sign(
+    { userId: user._id, username: user.username },
+    process.env.ACCESS_TOKEN_KEY,
+    { expiresIn: "1h" }
+  );
+
+  return Result.success(ctx, { user, accessToken });
 };

@@ -9,7 +9,7 @@ const PrivateRoute = ({ element: Element }) => {
 
   useEffect(() => {
     const checkSession = async () => {
-      const access = getLocalStorage("token");
+      const access = getLocalStorage("accessToken");
       const sessionStatus = access && access !== null;
       if (!sessionStatus) {
         navigate("/login");

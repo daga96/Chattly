@@ -1,11 +1,13 @@
 import axios from "axios";
-import { getLocalStorage } from "./Storage";
+import { getLocalStorage, setLocalStorage } from "./Storage";
+import { exchangeToken } from "../services/apiService";
+import { useAuth } from "../contexts/AuthContext";
 
 const API_URL = "http://localhost:8080";
 
 const createHeader = async () => {
   try {
-    const token = getLocalStorage("token");
+    const token = getLocalStorage("accessToken");
 
     if (!token) {
       throw new Error("Token not found in local storage");
@@ -23,7 +25,7 @@ const createHeader = async () => {
 
 const sendRequest = async ({ method, url, data }) => {
   const headers = await createHeader();
-  console.log("Headers:", headers);
+
   try {
     const response = await axios({
       method,
@@ -31,6 +33,17 @@ const sendRequest = async ({ method, url, data }) => {
       data,
       headers,
     });
+
+    if (
+      response.data.code == 401 &&
+      response.data.message == "Token Verification Failed"
+    ) {
+      const refreshToken = getLocalStorage("refreshToken");
+      const res = await exchangeToken({ refreshToken: refreshToken });
+
+      setLocalStorage("accessToken", res.data.accessToken);
+    }
+
     return response.data;
   } catch (err) {
     console.error("API request error:", err);
