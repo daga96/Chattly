@@ -4,7 +4,7 @@ import {
   removeLocalStorage,
   setLocalStorage,
   useLocalStorage,
-} from "../utils/Storage";
+} from "../utils/storage";
 
 const AuthContext = createContext(null);
 

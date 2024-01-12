@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-import { getLocalStorage } from "../utils/Storage";
+import { getLocalStorage } from "../utils/storage";
 import sendRequest from "../utils/request";
 
 const baseURL = "http://localhost:8080";

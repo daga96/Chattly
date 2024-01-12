@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
-import { getLocalStorage } from "./Storage";
+import { getLocalStorage } from "./storage";
 
 const PrivateRoute = ({ element: Element }) => {
   const navigate = useNavigate();

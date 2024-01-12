@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getLocalStorage, setLocalStorage } from "./Storage";
+import { getLocalStorage, setLocalStorage } from "./storage";
 import { exchangeToken } from "../services/apiService";
 import { useAuth } from "../contexts/AuthContext";
 
