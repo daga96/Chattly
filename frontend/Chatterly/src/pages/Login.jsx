@@ -7,7 +7,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
   const { currentUser, login } = useAuth();
 
@@ -16,12 +16,18 @@ const Login = () => {
 
     try {
       setLoading(true);
-      await login(username, password);
+      const loginRes = await login(username, password);
+
+      console.log(loginRes);
+      if (loginRes == null) {
+        setLoginError("비밀번호 또는 로그인이 잘못되었습니다");
+      } else {
+        navigate("/chat");
+        setLoading(false);
+      }
     } catch (error) {
       console.error("Login failed", error.message);
-    } finally {
-      navigate("/chat");
-      setLoading(false);
+      setLoginError("비밀번호 또는 로그인이 잘못되었습니다");
     }
   };
   return (
@@ -47,7 +53,7 @@ const Login = () => {
               required
             />
           </div>
-          <div className="mb-4">
+          <div>
             <label
               className="block text-white text-sm font-semibold mb-2"
               htmlFor="password"
@@ -64,6 +70,11 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+          </div>
+          <div className="h-8">
+            {loginError && (
+              <div className="text-red-300 font-bold "> {loginError} </div>
+            )}
           </div>
           <button
             className="w-full mb-4 bg-purple-400 text-white py-2 rounded-lg hover:bg-purple-500"

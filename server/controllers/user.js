@@ -61,6 +61,7 @@ exports.authUser = async (ctx) => {
 
   return Result.success(ctx, { user, accessToken, refreshToken });
 };
+
 exports.getUser = async (ctx) => {
   const { email } = ctx.request.body;
   try {

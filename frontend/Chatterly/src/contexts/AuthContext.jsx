@@ -39,12 +39,15 @@ export function AuthProvider({ children }) {
         password: password,
       });
 
-      setCurrentUser(res.data.data.user);
-      setLocalStorage("accessToken", res.data.data.accessToken);
-      setLocalStorage("refreshToken", res.data.data.refreshToken);
-      setLocalStorage("user", res.data.data.user);
+      if (res.data.data.user != undefined) {
+        setCurrentUser(res.data.data.user);
+        setLocalStorage("accessToken", res.data.data.accessToken);
+        setLocalStorage("refreshToken", res.data.data.refreshToken);
+        setLocalStorage("user", res.data.data.user);
 
-      return res.data;
+        return res.data;
+      }
+      return null;
     } catch (error) {
       console.error(error);
       throw error;

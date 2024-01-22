@@ -88,7 +88,7 @@ const ChatRoom = ({ currentChat, currentUser, socket }) => {
       <div className="w-full p-4  font-bold text-gray-200">
         {contact.username}
       </div>
-      <div className="relative w-full p-6 overflow-y-auto h-full  ">
+      <div className="relative w-full p-6 overflow-y-auto h-full">
         <ul className="space-y-2">
           {messages?.map((message, index) => (
             <div key={index} ref={scrollRef}>
