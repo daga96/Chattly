@@ -4,7 +4,7 @@ const Message = ({ message, sender, self }) => {
   const bubbleClasses = `p-2 w-fit rounded-lg break-words ${
     sender === self
       ? "justify-end bg-purple-400 text-white"
-      : "justify-start bg-gray-800"
+      : "justify-start bg-gray-800 text-white"
   }`;
 
   return (
