@@ -1,3 +1,11 @@
+/**
+ * Module for handling JSON responses in a web server.
+ * - 'json': Formats a JSON response with provided data, status code, and optional message.
+ * - 'success': Sends successful responses with status code 200 (OK).
+ * - 'error': Sends error responses with optional code and message, defaulting to 500 (Internal Server Error).
+ * Utilizes 'http-status' library for status codes and 'common' module for utility functions.
+ */
+
 const httpStatus = require("http-status");
 const util = require("../utils/common");
 

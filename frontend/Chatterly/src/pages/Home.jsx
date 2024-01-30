@@ -15,9 +15,11 @@ const Home = () => {
           <p className="text-white text-sm mb-6">
             Real-time chat application for you and your friends.
           </p>
-          <button className="w-full bg-purple-400 text-white py-2 rounded-lg hover:bg-purple-500">
-            Join Us
-          </button>
+          <Link to="/register">
+            <button className="w-full bg-purple-400 text-white py-2 rounded-lg hover:bg-purple-500">
+              Join Us
+            </button>
+          </Link>
         </div>
       </div>
     </div>

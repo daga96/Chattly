@@ -32,8 +32,8 @@ export function AuthProvider({ children }) {
   }
 
   async function login(username, password) {
+    setLoading(true);
     try {
-      setLoading(true);
       const res = await axios.post(`${baseURL}/login`, {
         username: username,
         password: password,

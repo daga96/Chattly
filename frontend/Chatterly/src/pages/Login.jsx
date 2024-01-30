@@ -6,35 +6,34 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
   const [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
-  const { currentUser, login } = useAuth();
+  const { login } = useAuth();
 
-  const handleLogin = async (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
+    handleLogin();
+  }
 
+  const handleLogin = async () => {
     try {
-      setLoading(true);
       const loginRes = await login(username, password);
-
-      console.log(loginRes);
-      if (loginRes == null) {
-        setLoginError("비밀번호 또는 로그인이 잘못되었습니다");
-      } else {
+      if (loginRes !== null) {
         navigate("/chat");
-        setLoading(false);
+      } else {
+        setLoginError("비밀번호 또는 로그인이 잘못되었습니다");
       }
     } catch (error) {
-      console.error("Login failed", error.message);
-      setLoginError("비밀번호 또는 로그인이 잘못되었습니다");
+      console.log(error);
+      setLoginError("서버에 문제가 발생했습니다. 나중에 다시 시도해주세요");
     }
   };
+
   return (
     <div className="min-h-screen w-screen flex items-center justify-center bg-gray-900">
       <div className="bg-gray-800 p-8 rounded-md shadow-md w-full max-w-md">
         <h2 className="text-3xl font-semibold mb-6 text-white">Login</h2>
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
               className="block text-white text-sm font-semibold mb-2"
@@ -56,7 +55,7 @@ const Login = () => {
           <div>
             <label
               className="block text-white text-sm font-semibold mb-2"
-              htmlFor="password"
+              htmlFor="currentpassword"
             >
               Password
             </label>
@@ -82,15 +81,16 @@ const Login = () => {
           >
             Log In
           </button>
-          <div className="text-sm">
-            <Link
-              to="/register"
-              className=" text-purple-400 hover:underline hover:text-purple-500"
-            >
-              Don't have an account? Register
-            </Link>
-          </div>
         </form>
+
+        <div className="text-sm">
+          <Link
+            to="/register"
+            className=" text-purple-400 hover:underline hover:text-purple-500"
+          >
+            Don't have an account? Register
+          </Link>
+        </div>
       </div>
     </div>
   );
